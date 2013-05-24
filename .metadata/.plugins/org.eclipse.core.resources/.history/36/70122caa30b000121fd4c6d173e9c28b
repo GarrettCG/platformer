@@ -1,0 +1,15 @@
+package data;
+
+public class RectangleEnv {
+	public RectangleEnv(float x, float y,float width, float height,String texdata){//x and y are coords for centerpoint
+		this.x=x;
+		this.y=y;
+		this.width=width;
+		this.height=height;
+		this.texdata=texdata;
+	}
+	private float x,y;
+	private float width,height;
+	private String texdata;
+	
+}

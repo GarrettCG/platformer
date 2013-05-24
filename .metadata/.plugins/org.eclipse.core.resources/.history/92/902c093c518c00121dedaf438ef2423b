@@ -1,0 +1,322 @@
+package display;
+
+
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL15.*;
+import static org.lwjgl.opengl.GL20.*;
+import static org.lwjgl.opengl.GL30.*;
+import static org.lwjgl.opengl.GL32.*;
+import org.lwjgl.BufferUtils;
+import java.nio.FloatBuffer;
+import java.util.ArrayList;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
+import framework.Framework;
+
+
+public class FragChangeColor04 extends LWJGLWindow {
+
+
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+	@Override
+	protected void init() {
+		initializeProgram();
+		initializeVertexBuffer(); 
+		vao = glGenVertexArrays();
+		updown=false;
+		leftdown=false;
+		rightdown=false;
+		downdown=false;
+		gridXcoord=0;
+		gridYcoord=0;//position on the grid
+		posx=0;//position of the grid
+		posy=0;
+		scale=1;
+		newscale=1;
+		lastscale=1;
+		scaleanimationcounter=60;
+		glBindVertexArray(vao);
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
+		glFrontFace(GL_CW);
+		aspect=1.0f;
+		glUseProgram(theProgram);
+		glUniform1f(uniformAspect, aspect);
+		glUseProgram(0);
+		final float depthZNear = 0.0f;
+		final float depthZFar = 1.0f;//i may need these later if i do 3d
+
+		glEnable(GL_DEPTH_TEST);
+		glDepthMask(true);
+		//glDepthFunc(GL_LEQUAL);
+		glDepthFunc(GL_LEQUAL);
+		glDepthRange(depthZNear, depthZFar);
+		glEnable(GL_DEPTH_CLAMP);
+
+		sr=new StringRenderer("",0.1f,1);
+	}
+
+
+	@Override
+	protected void display() {	
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+		sr.render("X:"+gridXcoord+" Y:"+gridYcoord, -0.91f, 0.91f);
+		glUseProgram(theProgram);
+		glUniform1f(elapsedTimeUniform, getElapsedTime() / 1000.0f);
+		glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject);
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(0, 4, GL_FLOAT, false, 0, 0);
+		glVertexAttribPointer(1, 4, GL_FLOAT, false, 0, 16000);//1000vertexes*16//where the color data starts
+		glDrawArrays(GL_LINES, 0, 1000);
+		glDisableVertexAttribArray(0);
+		glDisableVertexAttribArray(1);
+		glUseProgram(0);
+	}
+
+	@Override
+	protected void reshape(int width, int height) {
+		aspect = 1.0f / ((float)width / (float) height);
+		System.out.println("aspect:"+aspect);
+		glUseProgram(theProgram);
+		glUniform1f(uniformAspect, aspect);
+		glUseProgram(0);
+		glViewport(0, 0, width, height);
+	}
+
+
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+	@Override
+	protected void update(){
+		//need a general event queue
+		while (Keyboard.next()) {
+			if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
+				leaveMainLoop();
+			}else if(Keyboard.getEventKey() == Keyboard.KEY_F11){
+				//System.out.println("inside the key f11 update thingy");
+				fullscreentoggle=true;
+			}
+		    if (Keyboard.getEventKeyState()) {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_UP) {
+		        	//System.out.println("UP Key Pressed");
+		        	updown=true;
+		        }
+		    }
+		    else {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_UP) {
+		        	//System.out.println("UP Key Released");
+		        	updown=false;
+		        }
+		    }
+		    if (Keyboard.getEventKeyState()) {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_RIGHT) {
+		        	//System.out.println("Right Key Pressed");
+		        	rightdown=true;
+		        }
+		    }
+		    else {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_RIGHT) {
+		        	//System.out.println("Right Key Released");
+		        	rightdown=false;
+		        }
+		    }
+		    if (Keyboard.getEventKeyState()) {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_LEFT) {
+		        	//System.out.println("left Key Pressed");
+		        	leftdown=true;
+		        }
+		    }
+		    else {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_LEFT) {
+		        	//System.out.println("left Key Released");
+		        	leftdown=false;
+		        }
+		    }
+		    if (Keyboard.getEventKeyState()) {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_DOWN) {
+		        	//System.out.println("down Key Pressed");
+		        	downdown=true;
+		        }
+		    }
+		    else {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_DOWN) {
+		        	//System.out.println("down Key Released");
+		        	downdown=false;
+		        }
+		    }
+		}
+		while(Mouse.next()){
+			if(Mouse.getEventDWheel()>0){
+				newscale=lastscale*2;
+				//scalediff=newscale-lastscale;
+				//scalediff/=60;
+				lastscale=newscale;
+				System.out.println("greater than 0");
+				scaleanimationcounter=0;
+				scalediff=newscale-scale;
+			}else if (Mouse.getEventDWheel()<0){
+				newscale=lastscale/2;
+				//scalediff=newscale-lastscale;//had to invert it, i could have use absolute value as well
+				//scalediff/=60;
+				lastscale=newscale;
+				System.out.println("greater than 0");
+				scaleanimationcounter=0;
+				scalediff=newscale-scale;
+			}
+			gridXcoord=Mouse.getX();
+			gridYcoord=Mouse.getY();
+			
+			//System.out.println("dx="+Mouse.getEventDWheel());
+			//System.out.println("scale="+scale);
+			
+		}
+		
+		if(scaleanimationcounter<60&&scale!=newscale){
+			scale+=scalediff/60f;
+			scaleanimationcounter++;
+			System.out.println("scaleanimationcounter++ just happened");
+		}else{
+			scale=newscale;
+		}
+		if(updown){
+			posy-=.02f/scale;
+		}
+		if(rightdown){
+			posx-=.02f/scale;
+		}
+		if(leftdown){
+			posx+=.02f/scale;
+		}
+		if(downdown){
+			posy+=.02f/scale;
+		}
+	    glUseProgram(theProgram);
+	    glUniform1f(uniformScale,scale);
+	    glUniform1f(uniformXoffset, posx);
+	    glUniform1f(uniformYoffset, posy);
+	    glUseProgram(0);
+	};
+	private void initializeProgram() {			
+		//my code for making the grid// should probably be a resourse but i'm just hardcoding it in
+		vertexPositions=new float[8032];
+		for(float i=0;i<2000;i+=8){
+			vertexPositions[(int) i]=i/10;
+			vertexPositions[(int) i+1]=200;
+			vertexPositions[(int) i+2]=0;
+			vertexPositions[(int) i+3]=1;
+			vertexPositions[(int) i+4]=i/10;
+			vertexPositions[(int) i+5]=0;
+			vertexPositions[(int) i+6]=0;
+			vertexPositions[(int) i+7]=1;
+		}
+		for(float i=0;i<2000;i+=8){
+			vertexPositions[(int) i+2000]=0;
+			vertexPositions[(int) i+1+2000]=i/10;
+			vertexPositions[(int) i+2+2000]=0;
+			vertexPositions[(int) i+3+2000]=1;
+			vertexPositions[(int) i+4+2000]=200;
+			vertexPositions[(int) i+5+2000]=i/10;
+			vertexPositions[(int) i+6+2000]=0;
+			vertexPositions[(int) i+7+2000]=1;
+		}
+		//colors
+		for(float i=0;i<2000;i+=8){
+			vertexPositions[(int) i+0+4000]=1;
+			vertexPositions[(int) i+1+4000]=0;
+			vertexPositions[(int) i+2+4000]=0;
+			vertexPositions[(int) i+3+4000]=1;
+			vertexPositions[(int) i+4+4000]=1;
+			vertexPositions[(int) i+5+4000]=1;
+			vertexPositions[(int) i+6+4000]=1;
+			vertexPositions[(int) i+7+4000]=1;
+		}
+		for(float i=0;i<2000;i+=8){
+			vertexPositions[(int) i+0+6000]=0;
+			vertexPositions[(int) i+1+6000]=1;
+			vertexPositions[(int) i+2+6000]=0;
+			vertexPositions[(int) i+3+6000]=1;
+			vertexPositions[(int) i+4+6000]=1;
+			vertexPositions[(int) i+5+6000]=1;
+			vertexPositions[(int) i+6+6000]=1;
+			vertexPositions[(int) i+7+6000]=1;
+		}
+		//just gonna tack on some quadcoord data
+		vertexPositions[(int) 0+8000]=-1;
+		vertexPositions[(int) 1+8000]=1;
+		vertexPositions[(int) 2+8000]=0;
+		vertexPositions[(int) 3+8000]=1;
+		
+		vertexPositions[(int) 4+8000]=0;
+		vertexPositions[(int) 5+8000]=1;
+		vertexPositions[(int) 6+8000]=0;
+		vertexPositions[(int) 7+8000]=1;
+		
+		vertexPositions[(int) 0+8008]=0;
+		vertexPositions[(int) 1+8008]=0;
+		vertexPositions[(int) 2+8008]=0;
+		vertexPositions[(int) 3+8008]=1;
+		
+		vertexPositions[(int) 4+8008]=-1;
+		vertexPositions[(int) 5+8008]=0;
+		vertexPositions[(int) 6+8008]=0;
+		vertexPositions[(int) 7+8008]=1;
+	
+		ArrayList<Integer> shaderList = new ArrayList<>();
+		ArrayList<Integer> textshaderList = new ArrayList<>();
+		shaderList.add(Framework.loadShader(GL_VERTEX_SHADER, 	"CalcOffset.vert"));
+		shaderList.add(Framework.loadShader(GL_FRAGMENT_SHADER, "CalcColor.frag"));
+		textshaderList.add(Framework.loadShader(GL_VERTEX_SHADER, 	"Text.vert"));
+		textshaderList.add(Framework.loadShader(GL_FRAGMENT_SHADER, "Text.frag"));
+		theProgram = Framework.createProgram(shaderList);
+
+		elapsedTimeUniform = glGetUniformLocation(theProgram, "time");
+		uniformAspect=glGetUniformLocation(theProgram,"aspect");
+		uniformScale=glGetUniformLocation(theProgram,"scaler");
+	    uniformXoffset = glGetUniformLocation(theProgram, "xOffset");
+	    uniformYoffset = glGetUniformLocation(theProgram, "yOffset");
+	    glUseProgram(theProgram);
+	    glUniform1f(uniformXoffset, 0.0f);
+	    glUniform1f(uniformYoffset, 0.0f);
+	    glUseProgram(0);
+	}
+
+	private void initializeVertexBuffer() {
+		FloatBuffer vertexPositionsBuffer = BufferUtils.createFloatBuffer(vertexPositions.length);
+		vertexPositionsBuffer.put(vertexPositions);
+		vertexPositionsBuffer.flip();
+
+        positionBufferObject = glGenBuffers();	       
+		glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject);
+	    glBufferData(GL_ARRAY_BUFFER, vertexPositionsBuffer, GL_STREAM_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+	private float gridXcoord,gridYcoord;
+	String fontPath;
+	private float aspect;
+	private StringRenderer sr;
+	private float vertexPositions[];
+	private float posx,posy,scale,scalediff;
+	private float lastscale,newscale,scaleanimationcounter;
+	boolean ispos=false;
+	private int uniformAspect;
+	private int uniformScale;
+	private int uniformXoffset;
+	private int uniformYoffset;
+	private int positionBufferObject;
+	private boolean updown,leftdown,rightdown,downdown;
+	private int theProgram;
+	private int elapsedTimeUniform;
+	private int vao;
+	
+}

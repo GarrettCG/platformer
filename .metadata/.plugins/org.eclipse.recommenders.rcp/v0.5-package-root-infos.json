@@ -1,0 +1,275 @@
+[
+  {
+    "symbolicName": "ibxm",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "21034b6aae8abb63fd2e689e9f979920630e500f",
+    "jarFileModificationDate": "2007-05-12T13:58:18-04:00",
+    "location": "/home/skel/code/slick/ibxm.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "ca3744d0747863e000dc8c6b03438b097eb18bd7",
+    "jarFileModificationDate": "2013-03-30T22:32:00-04:00",
+    "location": "/usr/lib/jvm/java-7-oracle/jre/lib/charsets.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "org.apache.commons.codec",
+    "version": {
+      "major": 1,
+      "minor": 7,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "9cd61d269c88f9fb0eb36cea1efcd596ab74772f",
+    "jarFileModificationDate": "2012-09-11T08:05:26-04:00",
+    "location": "/home/skel/code/commons-codec-1.7/commons-codec-1.7.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jorbis-0.0.15",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "8010acdcf550f7c5d5ac64833fffa008e22c18f7",
+    "jarFileModificationDate": "2007-05-12T13:58:18-04:00",
+    "location": "/home/skel/code/slick/jorbis-0.0.15.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "natives-linux",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "da9bf59f43c0b0647a969e3ca6a18b588181bebb",
+    "jarFileModificationDate": "2013-01-31T04:56:55-05:00",
+    "location": "/home/skel/Downloads/natives-linux.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "f831655c50b92c41e366442d09511ea84270c45e",
+    "jarFileModificationDate": "2013-03-30T22:32:00-04:00",
+    "location": "/usr/lib/jvm/java-7-oracle/jre/lib/jce.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "lwjgl",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "b9acde346914aa47ff87ae0bbab4b29fe2ec13fd",
+    "jarFileModificationDate": "2012-11-04T20:20:28-05:00",
+    "location": "/home/skel/code/lwjgl/lwjgl-2.8.5/jar/lwjgl.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "702710d44dc4a2b3bd410c373c63488e930d77f3",
+    "jarFileModificationDate": "2013-03-30T22:32:00-04:00",
+    "location": "/usr/lib/jvm/java-7-oracle/jre/lib/rt.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "748f1fc466e61a98d12d03deedd988e06f1c034a",
+    "jarFileModificationDate": "2013-03-30T22:32:00-04:00",
+    "location": "/usr/lib/jvm/java-7-oracle/jre/lib/ext/dnsns.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "6ffbeee77b9a9c30e34e05c284b557c934675bf8",
+    "jarFileModificationDate": "2013-03-30T22:32:00-04:00",
+    "location": "/usr/lib/jvm/java-7-oracle/jre/lib/jsse.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "slick",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "30dcc8bb0a2aa2d4bf1eacf1c5c7c82159f3abc9",
+    "jarFileModificationDate": "2013-01-31T11:47:33-05:00",
+    "location": "/home/skel/code/slick/slick.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "slick-util",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "5e1749e89d6725f0b0464a187145b6c12a73bbff",
+    "jarFileModificationDate": "2010-06-26T18:24:44-04:00",
+    "location": "/home/skel/code/slick/slick-util.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "com.googlecode.json-simple",
+    "version": {
+      "major": 1,
+      "minor": 1,
+      "micro": 1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "5d6f9b6a9ddca2a28c0216cc44efb2e20d9c23b5",
+    "jarFileModificationDate": "2013-05-12T02:11:13-04:00",
+    "location": "/home/skel/code/json-simple-1.1.1.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "5da320e46f1c616986563b2e788b5a0569cad088",
+    "jarFileModificationDate": "2013-03-30T22:32:00-04:00",
+    "location": "/usr/lib/jvm/java-7-oracle/jre/lib/ext/sunjce_provider.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "c4c7923b11e98bc8d1d32bfd2ff6363d212ead80",
+    "jarFileModificationDate": "2013-03-30T22:32:00-04:00",
+    "location": "/usr/lib/jvm/java-7-oracle/jre/lib/ext/sunec.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "d43a5c19ef758298abd1acae36281b6e8dc1dc1d",
+    "jarFileModificationDate": "2013-03-30T22:32:00-04:00",
+    "location": "/usr/lib/jvm/java-7-oracle/jre/lib/resources.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jogg-0.0.7",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "08d79e2bf312278ed077054d620631755851b8a8",
+    "jarFileModificationDate": "2007-05-12T13:58:18-04:00",
+    "location": "/home/skel/code/slick/jogg-0.0.7.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "4ef1904ee0d7cbd35609b36be60ab1c27ff1ad01",
+    "jarFileModificationDate": "2013-03-30T22:32:00-04:00",
+    "location": "/usr/lib/jvm/java-7-oracle/jre/lib/jfr.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "411d150f53f0201be5d8f790fe3013f35b1f5229",
+    "jarFileModificationDate": "2013-03-30T22:32:00-04:00",
+    "location": "/usr/lib/jvm/java-7-oracle/jre/lib/ext/localedata.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "a6b1be9d838494a242e6838d2349069adee68f83",
+    "jarFileModificationDate": "2013-03-30T22:32:00-04:00",
+    "location": "/usr/lib/jvm/java-7-oracle/jre/lib/ext/zipfs.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "3fd7709166f70fe311b45a7bafe7cdccbecf6b04",
+    "jarFileModificationDate": "2013-03-30T22:32:00-04:00",
+    "location": "/usr/lib/jvm/java-7-oracle/jre/lib/ext/sunpkcs11.jar",
+    "javaRuntime": true
+  }
+]

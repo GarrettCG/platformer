@@ -1,0 +1,22 @@
+{
+  "/usr/lib/jvm/java-7-oracle/jre/lib/rt.jar": {
+    "coordinate": "jre:jre:zip:call:1.0.0",
+    "location": "/usr/lib/jvm/java-7-oracle/jre/lib/rt.jar",
+    "status": "RESOLVED"
+  },
+  "/home/skel/eclipse/lwjgl/Lwprog/src": {
+    "location": "/home/skel/eclipse/lwjgl/Lwprog/src",
+    "status": "UNRESOLVED",
+    "error": "No class path info available for \u0027/home/skel/eclipse/lwjgl/Lwprog/src\u0027. Skipped."
+  },
+  "/home/skel/code/lwjgl/lwjgl-2.8.5/jar/lwjgl.jar": {
+    "location": "/home/skel/code/lwjgl/lwjgl-2.8.5/jar/lwjgl.jar",
+    "status": "UNRESOLVED",
+    "error": "No call model found for \u0027/home/skel/code/lwjgl/lwjgl-2.8.5/jar/lwjgl.jar\u0027. Neither fingerprint \u0027b9acde346914aa47ff87ae0bbab4b29fe2ec13fd\u0027 nor symbolic name \u0027lwjgl\u0027 are known."
+  },
+  "/home/skel/code/slick/slick-util.jar": {
+    "location": "/home/skel/code/slick/slick-util.jar",
+    "status": "UNRESOLVED",
+    "error": "No call model found for \u0027/home/skel/code/slick/slick-util.jar\u0027. Neither fingerprint \u00275e1749e89d6725f0b0464a187145b6c12a73bbff\u0027 nor symbolic name \u0027slick-util\u0027 are known."
+  }
+}
