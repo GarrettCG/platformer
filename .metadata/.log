@@ -604,3 +604,31 @@ Binding(CTRL+D,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.textEditorScope,,,system)
+!SESSION 2013-05-26 10:58:12.113 -----------------------------------------------
+eclipse.buildId=M20120914-1800
+java.version=1.6.0_26
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.m2e.logback.configuration 4 0 2013-05-26 10:58:13.674
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: The bundle "org.eclipse.m2e.logback.configuration_1.2.0.20120903-1050 [688]" could not be resolved. Reason: Another singleton version selected: org.eclipse.m2e.logback.configuration_1.3.0.20130129-0926, Another singleton version selected: org.eclipse.m2e.logback.configuration_1.3.0.20130129-0926
+	at org.eclipse.osgi.framework.internal.core.AbstractBundle.getResolverError(AbstractBundle.java:1332)
+	at org.eclipse.osgi.framework.internal.core.AbstractBundle.getResolutionFailureException(AbstractBundle.java:1316)
+	at org.eclipse.osgi.framework.internal.core.BundleHost.startWorker(BundleHost.java:323)
+	at org.eclipse.osgi.framework.internal.core.AbstractBundle.resume(AbstractBundle.java:390)
+	at org.eclipse.osgi.framework.internal.core.Framework.resumeBundle(Framework.java:1176)
+	at org.eclipse.osgi.framework.internal.core.StartLevelManager.resumeBundles(StartLevelManager.java:559)
+	at org.eclipse.osgi.framework.internal.core.StartLevelManager.resumeBundles(StartLevelManager.java:544)
+	at org.eclipse.osgi.framework.internal.core.StartLevelManager.incFWSL(StartLevelManager.java:457)
+	at org.eclipse.osgi.framework.internal.core.StartLevelManager.doSetStartLevel(StartLevelManager.java:243)
+	at org.eclipse.osgi.framework.internal.core.StartLevelManager.dispatchEvent(StartLevelManager.java:438)
+	at org.eclipse.osgi.framework.internal.core.StartLevelManager.dispatchEvent(StartLevelManager.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY org.eclipse.core.resources 2 10035 2013-05-26 10:58:14.299
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.

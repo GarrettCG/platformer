@@ -432,7 +432,7 @@ public class FragChangeColor04 extends LWJGLWindow {
 	    	world.addEntity(new StaticEntity(((StaticEntity)activeEntity).getModel(), gridXfake,gridYfake));
 	    	wcull.updateEntity();
 	    }
-	    cursor.setLocation(((2*gridXcoord)/wwidth)/aspect, (2*gridYcoord)/wheight);
+	    cursor.setLocation(((2*gridXcoord)/wwidth)*aspect, (2*gridYcoord)/wheight);
 	    wcull.update();
 
 	};
