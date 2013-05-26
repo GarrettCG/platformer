@@ -20,7 +20,9 @@ public class UIEntity implements Entity{
 	public Location getLocation() {
 		return location;
 	}
-
+	public void setLocation(float x,float y){
+		location=new Location(x,y);
+	}
 	@Override
 	public boolean inUse() {
 		return isUsed;

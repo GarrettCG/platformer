@@ -1,25 +1,23 @@
 package display;
 
-
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL12.*;
+import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 import static org.lwjgl.opengl.GL32.*;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.lwjgl.BufferUtils;
+
+import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-
+import texturestuff.Texture;
 import data.Toggle;
 import data.TwoDModel;
 import data.Location;
@@ -31,7 +29,6 @@ import data.UIEntity;
 import data.World;
 import data.WorldCuller;
 import framework.Framework;
-
 
 public class FragChangeColor04 extends LWJGLWindow {
 
@@ -45,6 +42,76 @@ public class FragChangeColor04 extends LWJGLWindow {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable( GL_BLEND );
 		rl=new ResourceLoader();
+		
+		
+		//fbo = new FrameBuffer(width, height, Texture.NEAREST);
+		
+		
+		
+		FramebufferName = glGenFramebuffers( );
+		glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
+		//texture code
+		// The texture we're going to render to
+		renderedTexture=glGenTextures();
+		
+		// "Bind" the newly created texture : all future texture functions will modify this texture
+		glBindTexture(GL_TEXTURE_2D, renderedTexture);
+
+		// Give an empty image to OpenGL ( the last "0" means "empty" )
+		bb=BufferUtils.createByteBuffer(500*500*3);
+		glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, 500, 500, 0,GL_RGB, GL_UNSIGNED_BYTE,bb);
+
+		// Poor filtering
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); 
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		
+		//int depthrenderbuffer=glGenRenderbuffers();
+		//glBindRenderbuffer(GL_RENDERBUFFER, depthrenderbuffer);
+		//glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 1024, 768);
+		//glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer);
+
+		// Set "renderedtexture" as our colour attachement #0
+		glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, renderedTexture, 0);
+		 
+		// Set the list of draw buffers.
+		//enum DrawBuffers[2] = {GL_COLOR_ATTACHMENT0};
+		//DrawBuffers[2] = {GL_COLOR_ATTACHMENT0;}
+		//glDrawBuffers(1); // "1" is the size of DrawBuffers
+		// Set the list of draw buffers.
+		IntBuffer DrawBuffers = BufferUtils.createIntBuffer(1);
+		DrawBuffers.put(GL_COLOR_ATTACHMENT0);
+		glDrawBuffers( 1); // "1" is the size of DrawBuffers
+		if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
+			try {
+				System.out.println("shit is broken try line 84ish near the sleep statement");
+				Thread.sleep(5000);
+				
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+		}
+		final float g_quad_vertex_buffer_data[] = { 
+			-1.0f, -1.0f, 0.0f,1f,
+			-1.0f,  1.0f, 0.0f,1f,
+			 1.0f,  1.0f, 0.0f,1f,
+			 1.0f, -1.0f, 0.0f,1f
+		};
+		fullscreenQuad=BufferUtils.createFloatBuffer(g_quad_vertex_buffer_data.length);
+		fullscreenQuad.put(g_quad_vertex_buffer_data);
+		fullscreenQuad.flip();
+		screenpositionBufferObject = glGenBuffers();
+		glBindBuffer(GL_ARRAY_BUFFER, screenpositionBufferObject);
+		glBufferData(GL_ARRAY_BUFFER, fullscreenQuad, GL_STATIC_DRAW);
+		
+		
+		
+		
+		
+		
+		
+		
 		float[] UNIT_TEXTURE_ARRAY={0.0f,0.0f,1.0f,0.0f,1.0f,1.0f,0f,1.0f};
 		FloatBuffer tFlo=BufferUtils.createFloatBuffer(UNIT_TEXTURE_ARRAY.length);
 		tFlo.put(UNIT_TEXTURE_ARRAY);
@@ -59,7 +126,6 @@ public class FragChangeColor04 extends LWJGLWindow {
 		vao = glGenVertexArrays();
 		xlock=new Toggle(Keyboard.KEY_X);
 		ylock=new Toggle(Keyboard.KEY_Y);
-		//locktogrid=false;
 		clicked=false;
 		unclicked=true;
 		updown=false;
@@ -83,6 +149,7 @@ public class FragChangeColor04 extends LWJGLWindow {
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
 		glFrontFace(GL_CW);
+	    Mouse.setGrabbed(true);
 		aspect=1.0f;
 		glUseProgram(theProgram);
 		glUniform1f(uniformAspect, aspect);
@@ -97,7 +164,7 @@ public class FragChangeColor04 extends LWJGLWindow {
 		glDepthRange(depthZNear, depthZFar);
 		glEnable(GL_DEPTH_CLAMP);
 		sr=new StringRenderer("",0.1f,1);
-		sr2=new StringRenderer("",1f,0);
+		
 		
 		
 //experimental entity drawing code
@@ -105,7 +172,7 @@ public class FragChangeColor04 extends LWJGLWindow {
 		e=new StaticEntity(new TwoDModel(new Rectangle(.5f, .5f ,"ass"),0,0),4,4);
 		masterEntityList=new ArrayList<Entity>();
 		masterUIList=new ArrayList<Entity>();
-
+		cursor=new UIEntity(new Location(Mouse.getX(),Mouse.getY()),new TwoDModel(new Rectangle(.2f,.2f,"redtorch"),0f,0f));
 		world.addEntity(e);
 		wcull=new WorldCuller(world);
 		activeEntity=e;
@@ -140,13 +207,11 @@ public class FragChangeColor04 extends LWJGLWindow {
 
 	@Override
 	protected void display() {	
+		glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
+		glViewport(0, 0, (int)wwidth, (int)wheight);
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		rl.async.executeQueuedJobs();
-		//System.out.println("aspect:"+aspect);
-		sr.render("X:"+finalgridx+" Y:"+finalgridy, -0.91f, 0.91f);
-		sr.render("XL:"+xlocktoggle+"   YL:"+ylocktoggle,-0.91f,0.80f);
-		System.out.println("gridYcoord:"+gridYcoord);
 		glUseProgram(theProgram);
 		glUniform1f(elapsedTimeUniform, getElapsedTime() / 1000.0f);
 		glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject);
@@ -159,13 +224,35 @@ public class FragChangeColor04 extends LWJGLWindow {
 		glDisableVertexAttribArray(1);
 		glUseProgram(0);
 		for(int i=0;i<masterEntityList.size();i++){
-			//System.out.println("index is:"+i);
 			masterEntityList.get(i).draw();
 		}
 		for(int i=0;i<masterUIList.size();i++){
-			//System.out.println("index is:"+i);
 			masterUIList.get(i).draw();
 		}
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glViewport(0, 0, (int)wwidth, (int)wheight);
+		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		
+		glUseProgram(secondProgram);
+		// Bind our texture in Texture Unit 0
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, renderedTexture);
+		// Set our "renderedTexture" sampler to user Texture Unit 0
+		glUniform1i(texID, 0);
+
+		glUniform1f(elapsedTimeUniform, (float)(getElapsedTime()) );
+		glBindBuffer(GL_ARRAY_BUFFER, screenpositionBufferObject);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 4, GL_FLOAT, false, 0, 0);
+		glDrawArrays(GL_QUADS, 0, 4); // 2*3 indices starting at 0 -> 2 triangles
+
+		glDisableVertexAttribArray(0);
+		glUseProgram(0);
+		sr.render("X:"+finalgridx+" Y:"+finalgridy, -0.91f, 0.91f);
+		sr.render("XL:"+xlocktoggle+"   YL:"+ylocktoggle,-0.91f,0.80f);
+		cursor.draw();
+		//System.out.println("cursor:"+cursor.)
 		
 	}
 
@@ -181,6 +268,11 @@ public class FragChangeColor04 extends LWJGLWindow {
 		gridYtranslate=height/2;
 		wwidth=width;
 		wheight=height;
+		//modifying the render texture's properties to have the proper width,height and buffersize 
+		glBindTexture(GL_TEXTURE_2D, renderedTexture);
+		bb.clear();
+		bb=BufferUtils.createByteBuffer(width*height*3);
+		glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, width, height, 0,GL_RGB, GL_UNSIGNED_BYTE,bb);
 	}
 
 
@@ -338,15 +430,10 @@ public class FragChangeColor04 extends LWJGLWindow {
 	    if(clicked){
 	    	world.addEntity(new StaticEntity(((StaticEntity)activeEntity).getModel(), gridXfake,gridYfake));
 	    	wcull.updateEntity();
-	    	/*try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
 	    }
+	    cursor.setLocation((2*gridXcoord)/wwidth, (2*gridYcoord)/wheight);
 	    wcull.update();
-	  //  Mouse.setGrabbed(true);
+
 	};
 	private void initializeProgram() {			
 		//my code for making the grid// should probably be a resource but i'm just hardcoding it in
@@ -395,14 +482,15 @@ public class FragChangeColor04 extends LWJGLWindow {
 
 	
 		ArrayList<Integer> shaderList = new ArrayList<>();
-		ArrayList<Integer> textshaderList = new ArrayList<>();
+		ArrayList<Integer> othershaderList = new ArrayList<>();
 		shaderList.add(Framework.loadShader(GL_VERTEX_SHADER, 	"CalcOffset.vert"));
 		shaderList.add(Framework.loadShader(GL_FRAGMENT_SHADER, "CalcColor.frag"));
-		textshaderList.add(Framework.loadShader(GL_VERTEX_SHADER, 	"Text.vert"));
-		textshaderList.add(Framework.loadShader(GL_FRAGMENT_SHADER, "Text.frag"));
 		theProgram = Framework.createProgram(shaderList);
-
-		elapsedTimeUniform = glGetUniformLocation(theProgram, "time");
+		othershaderList.add(Framework.loadShader(GL_VERTEX_SHADER, 	"Passthrough.vert"));
+		othershaderList.add(Framework.loadShader(GL_FRAGMENT_SHADER, "WobblyTexture.frag"));
+		secondProgram=Framework.createProgram(othershaderList);
+		elapsedTimeUniform = glGetUniformLocation(secondProgram, "time");
+		texID = glGetUniformLocation(secondProgram, "renderedTexture");
 		uniformAspect=glGetUniformLocation(theProgram,"aspect");
 		uniformScale=glGetUniformLocation(theProgram,"scaler");
 	    uniformXoffset = glGetUniformLocation(theProgram, "xOffset");
@@ -437,13 +525,10 @@ public class FragChangeColor04 extends LWJGLWindow {
 	private WorldCuller wcull;
 	private Entity activeEntity;
 	private boolean clicked,unclicked;
-	//private static boolean locktogrid;
-	//public AsyncExecution async;
-	//public TextureManager tm;
 	private Toggle xlock,ylock;
 	private float finalgridx,finalgridy;
 	public static float aspect;
-	private StringRenderer sr,sr2;
+	private StringRenderer sr;
 	private float vertexPositions[];
 	public static float posx,posy,scale,scalediff;
 	private float lastscale,newscale,scaleanimationcounter;
@@ -452,11 +537,17 @@ public class FragChangeColor04 extends LWJGLWindow {
 	private int uniformScale;
 	private int uniformXoffset;
 	private int uniformYoffset;
-	private int positionBufferObject;
+	private int positionBufferObject,screenpositionBufferObject;
 	private boolean updown,leftdown,rightdown,downdown,xlocktoggle,ylocktoggle;
-	private int theProgram;
+	private int theProgram,secondProgram;
 	private int elapsedTimeUniform;
 	private int vao;
-	private Entity e,e2,e3;
+	private Entity e;
+	private int FramebufferName;
 	public static ResourceLoader rl;
+	public static FloatBuffer fullscreenQuad;
+	private Texture tivo;
+	private int texID,renderedTexture;
+	private ByteBuffer bb;
+	private UIEntity cursor;
 }

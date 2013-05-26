@@ -98,7 +98,9 @@ public final class Texture {
     int height;
     Format format;
     long lastUsedFrame;
-
+    
+    public int getId(){return id;}
+    
     Texture(TextureManager manager, URL url, MipMapMode mipMapMode) {
         this.manager = manager;
         this.url = url;

@@ -105,8 +105,6 @@ public class Rectangle extends Shape implements Serializable{
 	}
 	private int uniformAspect;
 	private int uniformScale, uniformX, uniformY,uniformWx,uniformWy;
-	//private float x,y;
-	//private float width,height;
 	private String texdata;
 	private FloatBuffer flo;
 	private int positionBufferObject;

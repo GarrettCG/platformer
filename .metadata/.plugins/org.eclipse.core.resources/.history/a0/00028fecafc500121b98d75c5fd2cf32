@@ -1,0 +1,20 @@
+#version 330 core
+
+in vec2 UV;
+
+out vec4 color;
+
+uniform sampler2D renderedTexture;
+uniform float time;
+
+// some const, tweak for best look
+const float sampleDist = 1.0;
+const float sampleStrength = 2.2; 
+
+void main(){
+
+
+    vec2 dir = 0.5 - UV; 
+	color = vec4(texture( renderedTexture, UV + 0.0005*vec2( sin(time+500*UV.x),cos(time+500*UV.y)) ).xyz,1) ;
+	//color=texture( renderedTexture, UV);
+}
