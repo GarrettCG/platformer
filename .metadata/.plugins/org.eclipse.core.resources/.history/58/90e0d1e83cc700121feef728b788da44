@@ -223,7 +223,6 @@ public class FragChangeColor04 extends LWJGLWindow {
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
 		glUseProgram(0);
-		System.out.println("size of masterEntityList:"+masterEntityList.size());
 		for(int i=0;i<masterEntityList.size();i++){
 			masterEntityList.get(i).draw();
 		}
