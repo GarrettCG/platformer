@@ -38,7 +38,7 @@ public class LWJGLWindow {
 			e.printStackTrace();
 			System.exit(-1);
 		}
-		
+		Display.setResizable(true);
 		long startTime = System.nanoTime();
 		continueMainLoop = true;
 		fullscreentoggle=false;

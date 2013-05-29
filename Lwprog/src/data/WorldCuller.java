@@ -9,7 +9,7 @@ public class WorldCuller {//should be portrayed as a game component
 	public WorldCuller(World world){
 		w=world;
 		activeY=(int)FragChangeColor04.posy/50;
-		activeX=(int)FragChangeColor04.posx/50;
+		activeX=(int)FragChangeColor04.aspectedposx/50;
 		activeZonesx=new ArrayList<Integer>();
 		activeZonesy=new ArrayList<Integer>();
 		activeZonesx.add(activeX);
@@ -28,7 +28,7 @@ public class WorldCuller {//should be portrayed as a game component
 	}
 	 public void update(){
 		int Y=(int)FragChangeColor04.posy/50;
-		int X=((int)((FragChangeColor04.posx/FragChangeColor04.aspect)/50));
+		int X=((int)((FragChangeColor04.aspectedposx/FragChangeColor04.aspect)/50));
 		if(Y==activeY&&X==activeX){
 			return;
 		}else{
@@ -40,7 +40,7 @@ public class WorldCuller {//should be portrayed as a game component
 	 }
 	 public void updateEntity(){
 			int Y=(int)FragChangeColor04.posy/50;
-			int X=((int)((FragChangeColor04.posx/FragChangeColor04.aspect)/50));
+			int X=((int)((FragChangeColor04.aspectedposx/FragChangeColor04.aspect)/50));
 			FragChangeColor04.masterEntityList.clear();
 			FragChangeColor04.masterEntityList.addAll(w.getNineZones(-Y, -X));
 	 }

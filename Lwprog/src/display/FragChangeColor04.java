@@ -149,7 +149,7 @@ public class FragChangeColor04 extends LWJGLWindow {
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
 		glFrontFace(GL_CW);
-	    Mouse.setGrabbed(true);
+	    //Mouse.setGrabbed(true);
 		aspect=1.0f;
 		glUseProgram(theProgram);
 		glUniform1f(uniformAspect, aspect);
@@ -164,7 +164,7 @@ public class FragChangeColor04 extends LWJGLWindow {
 		glDepthRange(depthZNear, depthZFar);
 		glEnable(GL_DEPTH_CLAMP);
 		sr=new StringRenderer("",0.1f,1);
-		
+		aspectedposx=0;
 		
 		
 //experimental entity drawing code
@@ -252,6 +252,7 @@ public class FragChangeColor04 extends LWJGLWindow {
 		glUseProgram(0);
 		sr.render("X:"+finalgridx+" Y:"+finalgridy, -0.91f, 0.91f);
 		sr.render("XL:"+xlocktoggle+"   YL:"+ylocktoggle,-0.91f,0.80f);
+		sr.render("apx:"+aspectedposx+"px:"+posx,-0.91f,0.69f);
 		
 		cursor.draw();
 		//System.out.println("cursor:"+cursor.)
@@ -260,7 +261,9 @@ public class FragChangeColor04 extends LWJGLWindow {
 
 	@Override
 	protected void reshape(int width, int height) {
+		
 		aspect = 1.0f / ((float)width / (float) height);
+		aspectedposx=posx*aspect;
 		System.out.println("aspect:"+aspect);
 		glUseProgram(theProgram);
 		glUniform1f(uniformAspect, aspect);
@@ -386,21 +389,24 @@ public class FragChangeColor04 extends LWJGLWindow {
 		}
 		if(rightdown){
 			posx-=.02f/scale;
+			aspectedposx-=((.02f/scale)*aspect);
 		}
 		if(leftdown){
 			posx+=.02f/scale;
+			aspectedposx+=((0.02f/scale)*aspect);
+			
 		}
 		if(downdown){
 			posy+=.02f/scale;
 		}
 	    glUseProgram(theProgram);
 	    glUniform1f(uniformScale,scale);
-	    glUniform1f(uniformXoffset, posx);
+	    glUniform1f(uniformXoffset, aspectedposx);
 	    glUniform1f(uniformYoffset, posy);
 	    glUseProgram(0);
 	  //  System.out.println("clicked:"+clicked);
 	   // System.out.println("unclicked:"+unclicked);
-	    gridXfake=(((gridXcoord)/(wwidth/2)/scale/aspect)-posx/aspect);//recently refactored the x, too lazy to update the y
+	    gridXfake=(((gridXcoord)/(wwidth/2)/scale/aspect)-aspectedposx/aspect);//recently refactored the x, too lazy to update the y
 	    //gridYfake=(((gridYcoord)/(wheight/2))-posy*scale)/scale;
 	    gridYfake=(2*gridYcoord)/(scale*wheight)-posy;
 	    ///////////////////////now i'm doing world cull and stuff like that
@@ -413,17 +419,22 @@ public class FragChangeColor04 extends LWJGLWindow {
 	    if(ylocktoggle&&xlocktoggle){
 	    	finalgridx=Math.round(gridXfake);
 	    	finalgridy=Math.round(gridYfake);
-	    	float q=(wwidth*scale)/(2*aspect);
-	    	Mouse.setCursorPosition((int)(finalgridx*q+gridXtranslate+posx*q),(int)(gridYtranslate+finalgridy*wheight*scale/2));
+	    	float q=(wwidth*scale)/(2/aspect);
+	    	Mouse.setCursorPosition((int)(finalgridx*q+gridXtranslate+aspectedposx*wwidth*scale/(2)),(int)(gridYtranslate+finalgridy*wheight*scale/2+posy*wheight*scale/2));
 	    }else if(ylocktoggle){
 	    	finalgridy=gridYfake;
 	    	finalgridy=Math.round(gridYfake);
-	    	Mouse.setCursorPosition(Mouse.getX(),(int)(gridYtranslate+finalgridy*wheight*scale/2));
+	    	Mouse.setCursorPosition(Mouse.getX(),(int)(gridYtranslate+finalgridy*wheight*scale/2+posy*wheight*scale/2));
 	    }else if(xlocktoggle){
 	    	finalgridx=Math.round(gridXfake);
 	    	finalgridy=gridYfake;
-	    	float q=(wwidth*scale)/(2*aspect);
-	    	Mouse.setCursorPosition((int)(finalgridx*q+gridXtranslate+posx*q),Mouse.getY());
+	    	float q=(wwidth*scale)/(2/aspect);
+	    	Mouse.setCursorPosition((int)(finalgridx*q+gridXtranslate+aspectedposx*wwidth*scale/(2)),Mouse.getY());
+	    	System.out.println("everything:"+(int)(finalgridx*q+gridXtranslate+aspectedposx*wwidth*scale/(2)));
+	    	System.out.println("finalgridx*q:"+finalgridx*q);
+	    	System.out.println("aspectedposx*q:"+aspectedposx*q);
+	    	System.out.println("q:"+q);
+	    	System.out.println("gridXtranslate:"+gridXtranslate);
 	    }else{
 	    	finalgridx=gridXfake;
 	    	finalgridy=gridYfake;
@@ -532,7 +543,7 @@ public class FragChangeColor04 extends LWJGLWindow {
 	public static float aspect;
 	private StringRenderer sr;
 	private float vertexPositions[];
-	public static float posx,posy,scale,scalediff;
+	public static float posx,posy,scale,scalediff ,aspectedposx;
 	private float lastscale,newscale,scaleanimationcounter;
 	boolean ispos=false;
 	private int uniformAspect;

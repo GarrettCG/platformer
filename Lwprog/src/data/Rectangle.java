@@ -77,7 +77,7 @@ public class Rectangle extends Shape implements Serializable{
 		FragChangeColor04.rl.retrieveTexture(texdata);
 		glUniform1f(uniformAspect, FragChangeColor04.aspect);
 		glUniform1f(uniformScale, FragChangeColor04.scale);
-		glUniform1f(uniformX, FragChangeColor04.posx);
+		glUniform1f(uniformX, FragChangeColor04.aspectedposx);
 		glUniform1f(uniformY, FragChangeColor04.posy);
 		glUniform1f(uniformWx,x);
 		glUniform1f(uniformWy,y);
