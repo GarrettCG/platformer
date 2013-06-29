@@ -165,17 +165,28 @@ public class FragChangeColor04 extends LWJGLWindow {
 		glEnable(GL_DEPTH_CLAMP);
 		sr=new StringRenderer("",0.1f,1);
 		aspectedposx=0;
-		
+		highlightIndex=6;
 		
 //experimental entity drawing code
 		world=new World(100, 100);
-		e=new StaticEntity(new TwoDModel(new Rectangle(.5f, .5f ,"ass"),0,0),4,4);
+		one=new StaticEntity(new TwoDModel(new Rectangle(.5f, .5f ,"wood"),0,0),4,4);
+		two=new StaticEntity(new TwoDModel(new Rectangle(.5f, .5f ,"stone"),0,0),4,4);
+		three=new StaticEntity(new TwoDModel(new Rectangle(.5f, .5f ,"snow"),0,0),4,4);
+		four=new StaticEntity(new TwoDModel(new Rectangle(.5f, .5f ,"vine"),0,0),4,4);
+		five=new StaticEntity(new TwoDModel(new Rectangle(.5f, .5f ,"sand"),0,0),4,4);
+		six=new StaticEntity(new TwoDModel(new Rectangle(.5f, .5f ,"dirt"),0,0),4,4);
+		seven=new StaticEntity(new TwoDModel(new Rectangle(.5f, .5f ,"rose"),0,0),4,4);
+		eight=new StaticEntity(new TwoDModel(new Rectangle(.5f, .5f ,"grass_side"),0,0),4,4);
+		nine=new StaticEntity(new TwoDModel(new Rectangle(.5f, .5f ,"hellrock"),0,0),4,4);
+
+		
 		masterEntityList=new ArrayList<Entity>();
 		masterUIList=new ArrayList<Entity>();
 		cursor=new UIEntity(new Location(Mouse.getX(),Mouse.getY()),new TwoDModel(new Rectangle(.2f,.2f,"redtorch"),0f,0f));
-		world.addEntity(e);
+		//world.addEntity();
 		wcull=new WorldCuller(world);
-		activeEntity=e;
+		activeEntity=five;
+		world.addEntity(activeEntity);
 		float y=-0.6f;
 		Entity testui=new UIEntity(new Location(0f,y),new TwoDModel(new Rectangle(1.6f, 0.2f, "background"), 0f, 0f) );
 		Entity test1=new UIEntity(new Location(-1.6f/2,y),new TwoDModel(new Rectangle(.2f, 0.2f, "wood"), 0f, 0f) );
@@ -187,7 +198,8 @@ public class FragChangeColor04 extends LWJGLWindow {
 		Entity test7=new UIEntity(new Location(0.8f/2,y),new TwoDModel(new Rectangle(.2f, 0.2f, "rose"), 0f, 0f) );
 		Entity test8=new UIEntity(new Location(1.2f/2,y),new TwoDModel(new Rectangle(.2f, 0.2f, "grass_side"), 0f, 0f) );
 		Entity test9=new UIEntity(new Location(1.6f/2,y),new TwoDModel(new Rectangle(.2f, 0.2f, "hellrock"), 0f, 0f) );
-
+		Entity highlight=new UIEntity(new Location(-0.00f,y+0.0f),new TwoDModel(new Rectangle(.2f+.04f, 0.2f+.04f, "highlight"), 0f, 0f) );
+		masterUIList.add(highlight);
 		masterUIList.add(testui);
 		masterUIList.add(test1);
 		masterUIList.add(test2);
@@ -227,9 +239,14 @@ public class FragChangeColor04 extends LWJGLWindow {
 		for(int i=0;i<masterEntityList.size();i++){
 			masterEntityList.get(i).draw();
 		}
-		for(int i=0;i<masterUIList.size();i++){
-			masterUIList.get(i).draw();
+		for(int i=1;i<masterUIList.size();i++){
+			if(!(highlightIndex==i)){
+				masterUIList.get(i).draw();
+			}
 		}
+		masterUIList.get(0).draw();
+		
+		masterUIList.get(highlightIndex).draw();
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glViewport(0, 0, (int)wwidth, (int)wheight);
 		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -253,6 +270,7 @@ public class FragChangeColor04 extends LWJGLWindow {
 		sr.render("X:"+finalgridx+" Y:"+finalgridy, -0.91f, 0.91f);
 		sr.render("XL:"+xlocktoggle+"   YL:"+ylocktoggle,-0.91f,0.80f);
 		sr.render("apx:"+aspectedposx+"px:"+posx,-0.91f,0.69f);
+		sr.render("lx:"+masterUIList.get(0).getLocation().getX(),-0.91f,0.58f);
 		
 		cursor.draw();
 		//System.out.println("cursor:"+cursor.)
@@ -345,6 +363,126 @@ public class FragChangeColor04 extends LWJGLWindow {
 		        	downdown=false;
 		        }
 		    }
+		    if (Keyboard.getEventKeyState()) {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_1) {
+		        	//System.out.println("down Key Pressed");
+		        	onedown=true;
+		        	activeEntity=one;
+		        }
+		    }
+		    else {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_1) {
+		        	//System.out.println("down Key Released");
+		        	onedown=false;
+		        }
+		    }
+		    if (Keyboard.getEventKeyState()) {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_2) {
+		        	//System.out.println("down Key Pressed");
+		        	twodown=true;
+		        	activeEntity=two;
+		        }
+		    }
+		    else {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_2) {
+		        	//System.out.println("down Key Released");
+		        	twodown=false;
+		        }
+		    }
+		    if (Keyboard.getEventKeyState()) {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_3) {
+		        	//System.out.println("down Key Pressed");
+		        	threedown=true;
+		        	activeEntity=three;
+		        }
+		    }
+		    else {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_3) {
+		        	//System.out.println("down Key Released");
+		        	threedown=false;
+		        }
+		    }
+		    if (Keyboard.getEventKeyState()) {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_4) {
+		        	//System.out.println("down Key Pressed");
+		        	fourdown=true;
+		        	activeEntity=four;
+		        }
+		    }
+		    else {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_4) {
+		        	//System.out.println("down Key Released");
+		        	fourdown=false;
+		        }
+		    }
+		    if (Keyboard.getEventKeyState()) {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_5) {
+		        	//System.out.println("down Key Pressed");
+		        	fivedown=true;
+		        	activeEntity=five;
+		        }
+		    }
+		    else {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_5) {
+		        	//System.out.println("down Key Released");
+		        	fivedown=false;
+		        }
+		    }
+		    if (Keyboard.getEventKeyState()) {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_6) {
+		        	//System.out.println("down Key Pressed");
+		        	sixdown=true;
+		        	activeEntity=six;
+		        }
+		    }
+		    else {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_6) {
+		        	//System.out.println("down Key Released");
+		        	sixdown=false;
+		        }
+		    }
+		    if (Keyboard.getEventKeyState()) {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_7) {
+		        	//System.out.println("down Key Pressed");
+		        	sevendown=true;
+		        	activeEntity=seven;
+		        }
+		    }
+		    else {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_7) {
+		        	//System.out.println("down Key Released");
+		        	sevendown=false;
+		        }
+		    }
+		    if (Keyboard.getEventKeyState()) {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_8) {
+		        	//System.out.println("down Key Pressed");
+		        	eightdown=true;
+		        	activeEntity=eight;
+		        }
+		    }
+		    else {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_8) {
+		        	//System.out.println("down Key Released");
+		        	eightdown=false;
+		        	
+		        }
+		    }
+		    if (Keyboard.getEventKeyState()) {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_9) {
+		        	//System.out.println("down Key Pressed");
+		        	ninedown=true;
+		        	activeEntity=nine;
+		        }
+		    }
+		    else {
+		        if (Keyboard.getEventKey() == Keyboard.KEY_9) {
+		        	//System.out.println("down Key Released");
+		        	ninedown=false;
+		        	
+		        }
+		    }
+
 		}
 		while(Mouse.next()){
 			if(Mouse.getEventDWheel()>0){
@@ -398,6 +536,42 @@ public class FragChangeColor04 extends LWJGLWindow {
 		}
 		if(downdown){
 			posy+=.02f/scale;
+		}
+		if(onedown){
+			highlightIndex=2;
+			masterUIList.get(0).setLocation(new Location(0+(highlightIndex-6)*.2f,masterUIList.get(0).getLocation().getY()));
+		}
+		if(twodown){
+			highlightIndex=3;
+			masterUIList.get(0).setLocation(new Location(0+(highlightIndex-6)*.2f,masterUIList.get(0).getLocation().getY()));
+		}
+		if(threedown){
+			highlightIndex=4;
+			masterUIList.get(0).setLocation(new Location(0+(highlightIndex-6)*.2f,masterUIList.get(0).getLocation().getY()));
+		}
+		if(fourdown){
+			highlightIndex=5;
+			masterUIList.get(0).setLocation(new Location(0+(highlightIndex-6)*.2f,masterUIList.get(0).getLocation().getY()));
+		}
+		if(fivedown){
+			highlightIndex=6;
+			masterUIList.get(0).setLocation(new Location(0+(highlightIndex-6)*.2f,masterUIList.get(0).getLocation().getY()));
+		}
+		if(sixdown){
+			highlightIndex=7;
+			masterUIList.get(0).setLocation(new Location(0+(highlightIndex-6)*.2f,masterUIList.get(0).getLocation().getY()));
+		}
+		if(sevendown){
+			highlightIndex=8;
+			masterUIList.get(0).setLocation(new Location(0+(highlightIndex-6)*.2f,masterUIList.get(0).getLocation().getY()));
+		}
+		if(eightdown){
+			highlightIndex=9;
+			masterUIList.get(0).setLocation(new Location(0+(highlightIndex-6)*.2f,masterUIList.get(0).getLocation().getY()));
+		}
+		if(ninedown){
+			highlightIndex=10;
+			masterUIList.get(0).setLocation(new Location(0+(highlightIndex-6)*.2f,masterUIList.get(0).getLocation().getY()));
 		}
 	    glUseProgram(theProgram);
 	    glUniform1f(uniformScale,scale);
@@ -563,4 +737,7 @@ public class FragChangeColor04 extends LWJGLWindow {
 	private int texID,renderedTexture;
 	private ByteBuffer bb;
 	private UIEntity cursor;
+	private int highlightIndex;
+	private boolean onedown,twodown,threedown,fourdown,fivedown,sixdown,sevendown,eightdown,ninedown;
+	private StaticEntity one,two,three,four,five,six,seven,eight,nine;
 }

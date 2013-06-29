@@ -22,7 +22,8 @@ void main(){
 	// this is the original colour of this fragment
     // using only this would result in a nonblurred version
     vec4 color = texture2D(renderedTexture,UV); 
-    vec4 sum = color;
+    gl_FragColor=color;
+    /*vec4 sum = color;
 	    for (int i = 0; i < 10; i++)
     {
       sum += texture2D( renderedTexture, UV + dir * samples[i] * sampleDist );
@@ -32,5 +33,5 @@ void main(){
     t = clamp( t ,0.0,1.0);
     //color = vec4(texture( renderedTexture, UV + 0.0005*vec2( sin(time+500*UV.x),cos(time+500*UV.y)) ).xyz,1) ;
 	//color=texture( renderedTexture, UV);
-	gl_FragColor = mix( color, sum, t );
+	gl_FragColor = mix( color, sum, t );*/
 }

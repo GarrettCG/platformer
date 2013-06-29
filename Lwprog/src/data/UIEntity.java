@@ -35,4 +35,9 @@ public class UIEntity implements Entity{
 	private boolean isUsed;
 	private Location location;
 	private TwoDModel model;
+	@Override
+	public void setLocation(Location l) {
+		// TODO Auto-generated method stub
+		location=l;
+	}
 }

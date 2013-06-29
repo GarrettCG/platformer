@@ -12,8 +12,8 @@ const float sampleDist = 1.0;
 const float sampleStrength = 2.2; 
 
 void main(){
-   float samples[10] =
-   float[](-0.08,-0.05,-0.03,-0.02,-0.01,0.01,0.02,0.03,0.05,0.08);
+   float samples[4] =
+   float[](0.01,0.02,0.03,0.04);
 
     vec2 dir =  0.5-UV; 
     float dist = sqrt(dir.x*dir.x + dir.y*dir.y); 

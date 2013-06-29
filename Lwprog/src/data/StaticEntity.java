@@ -31,4 +31,9 @@ public class StaticEntity implements Entity,Serializable{
 	public void setUsed(boolean b){
 		isUsed=b;
 	}
+	@Override
+	public void setLocation(Location l) {
+		// TODO Auto-generated method stub
+		worldLocation=l;
+	}
 }
