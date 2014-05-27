@@ -189,9 +189,9 @@
       "micro": 0,
       "qualifier": ""
     },
-    "jarFileFingerprint": "c4c7923b11e98bc8d1d32bfd2ff6363d212ead80",
+    "jarFileFingerprint": "d43a5c19ef758298abd1acae36281b6e8dc1dc1d",
     "jarFileModificationDate": "2013-03-30T22:32:00-04:00",
-    "location": "/usr/lib/jvm/java-7-oracle/jre/lib/ext/sunec.jar",
+    "location": "/usr/lib/jvm/java-7-oracle/jre/lib/resources.jar",
     "javaRuntime": true
   },
   {
@@ -202,9 +202,9 @@
       "micro": 0,
       "qualifier": ""
     },
-    "jarFileFingerprint": "d43a5c19ef758298abd1acae36281b6e8dc1dc1d",
+    "jarFileFingerprint": "c4c7923b11e98bc8d1d32bfd2ff6363d212ead80",
     "jarFileModificationDate": "2013-03-30T22:32:00-04:00",
-    "location": "/usr/lib/jvm/java-7-oracle/jre/lib/resources.jar",
+    "location": "/usr/lib/jvm/java-7-oracle/jre/lib/ext/sunec.jar",
     "javaRuntime": true
   },
   {

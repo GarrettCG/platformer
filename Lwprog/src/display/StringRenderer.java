@@ -219,7 +219,7 @@ public class StringRenderer implements StaticRenderer{
 		//glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 		//may not quite be necessary, i may only need the int textprogram from the other file
-		ArrayList<Integer> textshaderList = new ArrayList<>();
+		ArrayList<Integer> textshaderList = new ArrayList<Integer>();
 		textshaderList.add(Framework.loadShader(GL_VERTEX_SHADER, 	"Text.vert"));
 		textshaderList.add(Framework.loadShader(GL_FRAGMENT_SHADER, "Text.frag"));
 		textProgram = Framework.createProgram(textshaderList);

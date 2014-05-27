@@ -39,7 +39,7 @@ class ImageCreator {
 			throw new NoImagesSpecifiedException();
 		}
 		
-		m_imageData = new ArrayList<>(mipmapCount);
+		m_imageData = new ArrayList<byte[]>(mipmapCount);
 		m_imageSizes = new int[mipmapCount];
 		
 		// Allocate the memory for our data.

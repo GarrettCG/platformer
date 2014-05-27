@@ -46,7 +46,7 @@ public class ResourceLoader {
 			//set up texture then return it
 			try {
 				Texture.setUseCoreProfile(true); // this depends on your selected OpenGL profile
-				Texture t=tm.getTexture(new URL("file:///home/skel/eclipse/lwjgl/Lwprog/src/texturestuff/"+key+".png"));
+				Texture t=tm.getTexture(new URL("file:///media/skelly/524e2649-995c-4057-8290-42c154655470/eclipse/lwjgl/Lwprog/src/texturestuff/"+key+".png"));//yay for hardcoded absolute paths
 				t.bind();
 				textureList.put(key, t);
 			} catch (MalformedURLException e) {
@@ -61,7 +61,7 @@ public class ResourceLoader {
 			return programList.get(key);
 		}else if (key.equals("rect")){
 			//make rectangle program
-			ArrayList<Integer> textshaderList = new ArrayList<>();
+			ArrayList<Integer> textshaderList = new ArrayList<Integer>();
 			textshaderList.add(Framework.loadShader(GL_VERTEX_SHADER, 	"Text.vert"));
 			textshaderList.add(Framework.loadShader(GL_FRAGMENT_SHADER, "Text.frag"));
 			int rectProgram = Framework.createProgram(textshaderList);

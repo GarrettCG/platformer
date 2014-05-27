@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/media/skelly/524e2649-995c-4057-8290-42c154655470/code/lwjgl/lwjgl-2.8.5/native/linux"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/home/skel/code/lwjgl/lwjgl-2.8.5/jar/lwjgl.jar">
+	<classpathentry kind="lib" path="/media/skelly/524e2649-995c-4057-8290-42c154655470/code/lwjgl/lwjgl-2.8.5/jar/lwjgl.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="http://lwjgl.org/javadoc/"/>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/home/skel/code/lwjgl/lwjgl-2.8.5/native/linux"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/skel/code/slick/ibxm.jar"/>
-	<classpathentry kind="lib" path="/home/skel/code/slick/jogg-0.0.7.jar"/>
-	<classpathentry kind="lib" path="/home/skel/code/slick/jorbis-0.0.15.jar"/>
-	<classpathentry kind="lib" path="/home/skel/code/slick/slick-util.jar">
+	<classpathentry kind="lib" path="/media/skelly/524e2649-995c-4057-8290-42c154655470/code/slick/ibxm.jar"/>
+	<classpathentry kind="lib" path="/media/skelly/524e2649-995c-4057-8290-42c154655470/code/slick/jogg-0.0.7.jar"/>
+	<classpathentry kind="lib" path="/media/skelly/524e2649-995c-4057-8290-42c154655470/code/slick/jorbis-0.0.15.jar"/>
+	<classpathentry kind="lib" path="/media/skelly/524e2649-995c-4057-8290-42c154655470/code/slick/slick-util.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="http://slick.cokeandcode.com/javadoc-util/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/skel/code/slick/slick.jar" sourcepath="/home/skel/code/slick/slick.jar">
+	<classpathentry kind="lib" path="/media/skelly/524e2649-995c-4057-8290-42c154655470/code/slick/slick.jar" sourcepath="/home/skel/code/slick/slick.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="http://slick.cokeandcode.com/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/skel/code/commons-codec-1.7/commons-codec-1.7.jar"/>
-	<classpathentry kind="lib" path="/home/skel/code/json-simple-1.1.1.jar">
+	<classpathentry kind="lib" path="/media/skelly/524e2649-995c-4057-8290-42c154655470/code/commons-codec-1.7/commons-codec-1.7.jar"/>
+	<classpathentry kind="lib" path="/media/skelly/524e2649-995c-4057-8290-42c154655470/code/json-simple-1.1.1.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="http://alex-public-doc.s3.amazonaws.com/json_simple-1.1/index.html"/>
 		</attributes>

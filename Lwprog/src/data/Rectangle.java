@@ -29,12 +29,6 @@ import framework.Framework;
 
 public class Rectangle extends Shape implements Serializable{
 	public Rectangle(float width, float height,String texdata){//x and y are coords for centerpoint
-		//super.individualXoffset=x;
-		//super.individualYoffset=y;
-		//this.x=x;
-		//this.y=y;
-		//this.width=width;
-		//this.height=height;
 		this.texdata=texdata;
 		super.vertexs=new float[16];
 		super.vertexs[0]=-width/2;
@@ -67,8 +61,6 @@ public class Rectangle extends Shape implements Serializable{
 		glUseProgram(FragChangeColor04.rl.retrieveProgram("rect"));
 		glUniform1f(uniformAspect, FragChangeColor04.aspect);
 		glUniform1f(uniformScale, FragChangeColor04.scale);
-		//glUniform1f(uniformX, 0+x);
-		//glUniform1f(uniformY, 0+y);
 		glUseProgram(0);
 	}
 	@Override
@@ -81,10 +73,6 @@ public class Rectangle extends Shape implements Serializable{
 		glUniform1f(uniformY, FragChangeColor04.posy);
 		glUniform1f(uniformWx,x);
 		glUniform1f(uniformWy,y);
-		//glUseProgram(0);
-		//use the floatbuffer flo and the floatbuffer
-		//glUseProgram(FragChangeColor04.rl.retrieveProgram("rect"));
-		//glUniform1f(elapsedTimeUniform, getElapsedTime() / 1000.0f);
 		glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject);
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 4, GL_FLOAT, false, 0, 0);
@@ -118,10 +106,6 @@ public class Rectangle extends Shape implements Serializable{
 		glUniform1f(uniformY, 0f);
 		glUniform1f(uniformWx,x);
 		glUniform1f(uniformWy,y);
-		//glUseProgram(0);
-		//use the floatbuffer flo and the floatbuffer
-		//glUseProgram(FragChangeColor04.rl.retrieveProgram("rect"));
-		//glUniform1f(elapsedTimeUniform, getElapsedTime() / 1000.0f);
 		glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject);
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 4, GL_FLOAT, false, 0, 0);
